@@ -21,8 +21,10 @@ DECLARE
     query TEXT;
 BEGIN
     -- Obtem lista de gêneros formatada para a seleção
-    SELECT STRING_AGG(DISTINCT 
-           'COALESCE(MAX(CASE WHEN e.genero_id = ' || pk || ' THEN e.probabilidade END), 0.5) AS "' || nome || '"', ', ')
+    SELECT STRING_AGG(
+        'COALESCE(MAX(CASE WHEN genero_id = ' || pk || ' THEN probabilidade END), 0.5) AS "' || nome || '"',
+        ', '
+    )
     INTO generos
     FROM biblio.Genero;
 
@@ -82,11 +84,13 @@ SELECT * FROM biblio.probabilidade_devolucao(3)
 AS (
     usuario_id INTEGER,
     usuario_nome TEXT,
-    Romance NUMERIC,
-    "Ficção Científica" NUMERIC,
     Fantasia NUMERIC,
+    Mistério NUMERIC,
+    Aventura NUMERIC,
+    "Ficção Científica" NUMERIC,
     Drama NUMERIC,
-    Poesia NUMERIC,
-    Suspense NUMERIC,
+    Romance NUMERIC,
+    Infantil NUMERIC,
+    História NUMERIC,
     Biografia NUMERIC
 );
